@@ -53,7 +53,7 @@ export const todosRouter = router({
     .mutation((req) => {
       const { id, isComplete } = req.input
       const todo = Todos.find((todo) => todo.id === id)
-      const todoName = todo.todoName
+      const todoName = todo!.todoName
       const updatedTodo: Todo = { id, todoName, isComplete }
       Todos = Todos.map((t) => t.id == id ? updatedTodo : t)
     }),

@@ -55,17 +55,21 @@ export default function Home() {
           <p>Loading..</p>
         ) : (
           <div className={styles.container}>
-            {todos.data.map(({ todoName, isComplete, id }, i) => (
-              <div key={i}>
-                <span style={{ textDecoration: isComplete ? 'line-through' : 'none', marginRight: 30 }}>{todoName}</span>
-                <span>
-                  <input type='checkbox' checked={isComplete ? true : false} onChange={() => handleUpdateTodo(id, isComplete)} />
-                  <button onClick={() => handleDelete(id)} className={styles.btnDel}>
-                    delete
-                  </button>
-                </span>
-              </div>
-            ))}
+            {todos.data != null && (
+              <>
+                {todos && todos.data.map(({ todoName, isComplete, id }, i) => (
+                  <div key={i}>
+                    <span style={{ textDecoration: isComplete ? 'line-through' : 'none', marginRight: 30 }}>{todoName}</span>
+                    <span>
+                      <input type='checkbox' checked={isComplete ? true : false} onChange={() => handleUpdateTodo(id, isComplete)} />
+                      <button onClick={() => handleDelete(id)} className={styles.btnDel}>
+                        delete
+                      </button>
+                    </span>
+                  </div>
+                ))}
+              </>
+            )}
           </div>
         )}
         < br />
