@@ -16,24 +16,18 @@ export default function Home() {
     create.mutate({ todoName })
     // mutation.isSuccess && setTodoName('')
 
-    // tRPC isnt support auto refetch yet, so i reload the page for load ne data todos
+    // tRPC isnt support auto refetch yet, so i reload the page for load new data todos
     // for auto refetch, you can use tRPC with react-query
     window.location.reload()
   }
 
   const handleUpdateTodo = (id: string, valueComplete: boolean) => {
     updateTodo.mutate({ id, isComplete: !valueComplete })
-
-    // tRPC isnt support auto refetch yet, so i reload the page for load ne data todos
-    // for auto refetch, you can use tRPC with react-query
     window.location.reload()
   }
 
   const handleDelete = (id: string) => {
     deleteTodo.mutate({ id })
-
-    // tRPC isnt support auto refetch yet, so i reload the page for load ne data todos
-    // for auto refetch, you can use tRPC with react-query
     window.location.reload()
   }
 
@@ -55,21 +49,17 @@ export default function Home() {
           <p>Loading..</p>
         ) : (
           <div className={styles.container}>
-            {todos.data != null && (
-              <>
-                {todos && todos.data.map(({ todoName, isComplete, id }, i) => (
-                  <div key={i}>
-                    <span style={{ textDecoration: isComplete ? 'line-through' : 'none', marginRight: 30 }}>{todoName}</span>
-                    <span>
-                      <input type='checkbox' checked={isComplete ? true : false} onChange={() => handleUpdateTodo(id, isComplete)} />
-                      <button onClick={() => handleDelete(id)} className={styles.btnDel}>
-                        delete
-                      </button>
-                    </span>
-                  </div>
-                ))}
-              </>
-            )}
+            {todos.data && todos.data.map(({ todoName, isComplete, id }, i) => (
+              <div key={i}>
+                <span style={{ textDecoration: isComplete ? 'line-through' : 'none', marginRight: 30 }}>{todoName}</span>
+                <span>
+                  <input type='checkbox' checked={isComplete ? true : false} onChange={() => handleUpdateTodo(id, isComplete)} />
+                  <button onClick={() => handleDelete(id)} className={styles.btnDel}>
+                    delete
+                  </button>
+                </span>
+              </div>
+            ))}
           </div>
         )}
         < br />
